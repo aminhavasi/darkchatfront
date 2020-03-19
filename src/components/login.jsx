@@ -8,32 +8,38 @@ class Login extends Component {
     };
     showError = (input, message) => {
         const formGroup = input.parentElement;
-        formGroup.className = 'form-group error  ';
+        formGroup.className = 'form-group error';
         const small = formGroup.querySelector('small');
 
         small.innerText = message;
-        throw new Error('fileds');
     };
     showSuccess = input => {
         const fromGroup = input.parentElement;
-        fromGroup.className = 'form-group  ';
+        fromGroup.className = 'form-group';
     };
 
     checkRequired = arr => {
+        let check = 0;
         arr.forEach(input => {
             if (input.value.trim() === '') {
                 this.showError(input, `${input.id} is required`);
+                check++;
             } else {
                 this.showSuccess(input);
             }
         });
+        if (check > 0) {
+            return false;
+        }
+        return true;
     };
     handleSubmit = async e => {
         try {
             e.preventDefault();
             let email = document.getElementById('email');
             let password = document.getElementById('password');
-            await this.checkRequired([email, password]);
+            const result = await this.checkRequired([email, password]);
+            console.log(result);
         } catch (error) {
             console.log(error);
         }
