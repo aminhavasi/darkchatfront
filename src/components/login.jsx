@@ -62,6 +62,7 @@ class Login extends Component {
                             <div className="form-group ">
                                 <label>Email or UserName:</label>
                                 <input
+                                    type="text"
                                     id="email"
                                     className="form-control mr-3"
                                     placeholder="example@info.com /example"
@@ -70,7 +71,7 @@ class Login extends Component {
                                         this.setState({ email: e.target.value })
                                     }
                                 />
-                                <small className="vi">Error</small>
+                                <small className="vi mr-3">Error</small>
                             </div>
                             <div className="form-group ">
                                 <label>Email:</label>
@@ -86,7 +87,7 @@ class Login extends Component {
                                         })
                                     }
                                 />
-                                <small className="vi">Error</small>
+                                <small className="vi ml-3">Error</small>
                             </div>
                         </div>
                         <div className="text-center">
