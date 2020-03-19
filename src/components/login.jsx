@@ -6,8 +6,37 @@ class Login extends Component {
         email: '',
         password: ''
     };
-    handleSubmit = e => {
-        e.preventDefault();
+    showError = (input, message) => {
+        const formGroup = input.parentElement;
+        formGroup.className = 'form-group error  ';
+        const small = formGroup.querySelector('small');
+
+        small.innerText = message;
+        throw new Error('fileds');
+    };
+    showSuccess = input => {
+        const fromGroup = input.parentElement;
+        fromGroup.className = 'form-group  ';
+    };
+
+    checkRequired = arr => {
+        arr.forEach(input => {
+            if (input.value.trim() === '') {
+                this.showError(input, `${input.id} is required`);
+            } else {
+                this.showSuccess(input);
+            }
+        });
+    };
+    handleSubmit = async e => {
+        try {
+            e.preventDefault();
+            let email = document.getElementById('email');
+            let password = document.getElementById('password');
+            await this.checkRequired([email, password]);
+        } catch (error) {
+            console.log(error);
+        }
     };
     render() {
         return (
@@ -24,21 +53,34 @@ class Login extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <div className="row">
-                            <div className="form-group  mr-3">
-                                <label>UserName:</label>
+                            <div className="form-group ">
+                                <label>Email or UserName:</label>
                                 <input
-                                    className="form-control"
-                                    placeholder="Email"
+                                    id="email"
+                                    className="form-control mr-3"
+                                    placeholder="example@info.com /example"
+                                    value={this.state.email}
+                                    onChange={e =>
+                                        this.setState({ email: e.target.value })
+                                    }
                                 />
-                                <smal className="vi">Error</smal>
+                                <small className="vi">Error</small>
                             </div>
-                            <div className=" form-group ml-3">
+                            <div className="form-group ">
                                 <label>Email:</label>
                                 <input
-                                    className="form-control"
+                                    type="password"
+                                    id="password"
+                                    className="form-control ml-3 "
                                     placeholder="******"
+                                    value={this.state.password}
+                                    onChange={e =>
+                                        this.setState({
+                                            password: e.target.value
+                                        })
+                                    }
                                 />
-                                <smal className="vi">Error</smal>
+                                <small className="vi">Error</small>
                             </div>
                         </div>
                         <div className="text-center">
