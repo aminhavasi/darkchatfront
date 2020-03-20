@@ -57,9 +57,9 @@ class Login extends Component {
                 }}
             >
                 <form onSubmit={this.handleSubmit}>
-                    <div>
+                    <div className="container-fluid">
                         <div className="row">
-                            <div className="form-group ">
+                            <div className="form-group  ">
                                 <label>Email or UserName:</label>
                                 <input
                                     type="text"
@@ -73,8 +73,8 @@ class Login extends Component {
                                 />
                                 <small className="vi mr-3">Error</small>
                             </div>
-                            <div className="form-group ">
-                                <label>Email:</label>
+                            <div className="form-group">
+                                <label>password:</label>
                                 <input
                                     type="password"
                                     id="password"

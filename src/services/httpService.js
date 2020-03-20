@@ -5,6 +5,7 @@ axios.interceptors.response.use(null, err => {
         err.response && err.response.status >= 400 && err.response.status < 500;
     if (!exceptionError) {
         alert('something went wrong');
+        window.location = '/';
     }
     return Promise.reject(err);
 });

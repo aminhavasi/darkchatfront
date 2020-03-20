@@ -28,3 +28,6 @@
     display: block;
     background-color: #f5cece;
 }
+.alert-zone .error {
+    visibility: hidden;
+}
