@@ -3,8 +3,10 @@ import config from './../config.json';
 export function login(email, password) {
     return httpService.post(`${config.auth}/login`, { email, password });
 }
-export function register(ins, password, username) {
+export function register(email, password, username) {
     return httpService.post(`${config.auth}/register`, {
-        ins
+        email,
+        password,
+        username
     });
 }
