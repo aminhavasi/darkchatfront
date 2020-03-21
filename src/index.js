@@ -5,6 +5,7 @@ import App from './App';
 import NotFound from './components/not-found';
 import Login from './components/login';
 import Register from './components/register';
+import Chat from './components/chat';
 
 ReactDOM.render(
     <BrowserRouter>
@@ -30,6 +31,16 @@ ReactDOM.render(
                         return <Redirect to="/chat" />;
                     } else {
                         return <Register />;
+                    }
+                }}
+            />
+            <Route
+                path="/chat"
+                component={() => {
+                    if (localStorage.getItem('token')) {
+                        return <Chat />;
+                    } else {
+                        return <Redirect to="/" />;
                     }
                 }}
             />
