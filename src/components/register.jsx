@@ -11,7 +11,13 @@ class Register extends Component {
     handleSubmit = async e => {
         e.preventDefault();
         let { username, email, password } = this.state;
-        const result = await register(username, email, password);
+        try {
+            const result = await register(username, email, password);
+            window.location = '/login';
+        } catch (err) {
+            if (err.response && err.response.status === 400) console.log(err);
+            alert('invalid email or password');
+        }
     };
     render() {
         return (

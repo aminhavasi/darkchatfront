@@ -11,7 +11,17 @@ ReactDOM.render(
         <Switch>
             <Route exact path="/" component={App} />
             <Route exact path="/not-found" component={NotFound} />
-            <Route exact path="/login" component={Login} />
+            <Route
+                exact
+                path="/login"
+                component={() => {
+                    if (localStorage.getItem('token')) {
+                        return <Redirect to="/chat" />;
+                    } else {
+                        return <Login />;
+                    }
+                }}
+            />
             <Route exact path="/register" component={Register} />
 
             <Redirect to="/not-found" />
