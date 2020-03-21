@@ -14,7 +14,7 @@ ReactDOM.render(
             <Route
                 exact
                 path="/login"
-                component={() => {
+                render={() => {
                     if (localStorage.getItem('token')) {
                         return <Redirect to="/chat" />;
                     } else {
@@ -22,7 +22,17 @@ ReactDOM.render(
                     }
                 }}
             />
-            <Route exact path="/register" component={Register} />
+            <Route
+                exact
+                path="/register"
+                render={() => {
+                    if (localStorage.getItem('token')) {
+                        return <Redirect to="/chat" />;
+                    } else {
+                        return <Register />;
+                    }
+                }}
+            />
 
             <Redirect to="/not-found" />
         </Switch>

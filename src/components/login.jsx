@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { login } from './../services/httpPost';
 import './../App.css';
 class Login extends Component {
     state = {
@@ -39,7 +40,11 @@ class Login extends Component {
             let email = document.getElementById('email');
             let password = document.getElementById('password');
             const result = await this.checkRequired([email, password]);
-            console.log(result);
+            if (result) {
+                const { email, password } = this.state;
+                const { data } = await login(email, password);
+                localStorage.setItem('token', data);
+            }
         } catch (error) {
             console.log(error);
         }
