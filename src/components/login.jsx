@@ -43,7 +43,7 @@ class Login extends Component {
             if (result) {
                 const { email, password } = this.state;
                 const { data } = await login(email, password);
-                localStorage.setItem('token', data);
+                localStorage.setItem('token', data.token);
             }
         } catch (error) {
             console.log(error);
