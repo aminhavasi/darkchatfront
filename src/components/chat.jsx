@@ -2,9 +2,18 @@ import React, { Component } from 'react';
 import socketIOClient from 'socket.io-client';
 
 class Chat extends Component {
+    state = { msg: [] };
     componentDidMount() {
-        const socket = socketIOClient('http://localhost:8000');
-        socket.emit('irann', { text: 'jijiji' });
+        console.log('***');
+        const so = socketIOClient('http://localhost:8000');
+        so.on('iran', message => {
+            const { msg } = this.state;
+            const cloneMsg = [...msg];
+            const newMsg = { id: message._id, text: message.text };
+            cloneMsg.push(newMsg);
+            this.setState({ msg: cloneMsg });
+            console.log(this.state.msg);
+        });
     }
     render() {
         return (
@@ -15,11 +24,12 @@ class Chat extends Component {
                     </a>
                 </nav>
                 <div
-                    style={{ minHeight: '100vh' }}
+                    style={{ minHeight: '90vh' }}
                     className="d-flex justify-content-center align-items-center text-danger"
                 >
                     <div
                         style={{
+                            position: 'relative',
                             backgroundColor: '#1a1a1a',
                             width: '80%',
                             height: '80vh',
@@ -28,7 +38,40 @@ class Chat extends Component {
                             overflowX: 'hidden',
                             scrollbarColor: '#009900   #001a00'
                         }}
-                    ></div>
+                    >
+                        <p
+                            style={{
+                                wordWrap: 'break-word',
+                                textAlign: 'right'
+                            }}
+                        ></p>
+                        <p
+                            style={{
+                                textAlign: 'left',
+                                wordWrap: 'break-word'
+                            }}
+                        >
+                            sdsd
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <div
+                        className=""
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
+                    >
+                        <input className="" size="110" />
+                        <button
+                            className="btn btn-sm btn-success"
+                            style={{ height: '35px' }}
+                        >
+                            send
+                        </button>
+                    </div>
                 </div>
             </div>
         );
