@@ -10,8 +10,6 @@ import Chat from './components/chat';
 ReactDOM.render(
     <BrowserRouter>
         <Switch>
-            <Route exact path="/" component={App} />
-            <Route exact path="/not-found" component={NotFound} />
             <Route
                 exact
                 path="/login"
@@ -34,16 +32,9 @@ ReactDOM.render(
                     }
                 }}
             />
-            <Route
-                path="/chat"
-                component={() => {
-                    if (localStorage.getItem('token')) {
-                        return <Chat />;
-                    } else {
-                        return <Redirect to="/" />;
-                    }
-                }}
-            />
+            <Route path="/not-found" component={NotFound} />
+
+            <Route path="/" component={App} />
 
             <Redirect to="/not-found" />
         </Switch>

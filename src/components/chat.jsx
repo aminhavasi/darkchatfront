@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
+import socketIOClient from 'socket.io-client';
+
 class Chat extends Component {
+    componentDidMount() {
+        const socket = socketIOClient('http://localhost:8000');
+        socket.emit('irann', { text: 'jijiji' });
+    }
     render() {
         return (
             <div style={{ minHeight: '100vh', backgroundColor: 'black' }}>

@@ -44,6 +44,8 @@ class Login extends Component {
                 const { email, password } = this.state;
                 const { data } = await login(email, password);
                 localStorage.setItem('token', data.token);
+                console.log(data.user._id);
+                localStorage.setItem('chatId', data.user._id);
             }
         } catch (error) {
             console.log(error);

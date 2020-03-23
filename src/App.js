@@ -1,15 +1,34 @@
 import React, { Component } from 'react';
-import socketIOClient from 'socket.io-client';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
+import Chat from './components/chat';
+import Home from './components/home';
 class App extends Component {
-    componentDidMount() {
-        const socket = socketIOClient('http://localhost:8000');
-        socket.on('newMessage', message => {
-            console.log(message);
-        });
-    }
+    state = {
+        id: ''
+    };
+
     render() {
-        return <div className="App">welcome to my chat room</div>;
+        return (
+            <div className="App">
+                <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route
+                        exact
+                        path="/chat"
+                        render={() => {
+                            if (localStorage.getItem('token')) {
+                                return <Chat />;
+                            } else {
+                                return <Redirect to="/login" />;
+                            }
+                        }}
+                    />
+
+                    <Redirect to="/not-found" />
+                </Switch>
+            </div>
+        );
     }
 }
 export default App;
