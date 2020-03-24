@@ -3,10 +3,9 @@ import socketIOClient from 'socket.io-client';
 
 class Chat extends Component {
     state = { msg: [] };
-    componentDidMount() {
-        console.log('***');
+    socket = () => {
         const so = socketIOClient('http://localhost:8000');
-        so.on('iran', message => {
+        so.on('newMessage', message => {
             const { msg } = this.state;
             const cloneMsg = [...msg];
             const newMsg = { id: message._id, text: message.text };
@@ -14,7 +13,12 @@ class Chat extends Component {
             this.setState({ msg: cloneMsg });
             console.log(this.state.msg);
         });
+    };
+
+    componentDidMount() {
+        this.socket();
     }
+
     render() {
         return (
             <div style={{ minHeight: '100vh', backgroundColor: 'black' }}>
@@ -39,20 +43,32 @@ class Chat extends Component {
                             scrollbarColor: '#009900   #001a00'
                         }}
                     >
-                        <p
-                            style={{
-                                wordWrap: 'break-word',
-                                textAlign: 'right'
-                            }}
-                        ></p>
-                        <p
-                            style={{
-                                textAlign: 'left',
-                                wordWrap: 'break-word'
-                            }}
-                        >
-                            sdsd
-                        </p>
+                        {this.state.msg.map(m =>
+                            m.id === localStorage.getItem('chatId') ? (
+                                <p
+                                    className="p-2"
+                                    key={m.id}
+                                    style={{
+                                        wordWrap: 'break-word',
+                                        textAlign: 'right',
+                                        color: 'blue'
+                                    }}
+                                >
+                                    {m.text}
+                                </p>
+                            ) : (
+                                <p
+                                    key={m.id}
+                                    className="p-2"
+                                    style={{
+                                        textAlign: 'left',
+                                        wordWrap: 'break-word'
+                                    }}
+                                >
+                                    {`* ${m.text}`}
+                                </p>
+                            )
+                        )}
                     </div>
                 </div>
                 <div>
@@ -64,8 +80,9 @@ class Chat extends Component {
                             alignItems: 'center'
                         }}
                     >
-                        <input className="" size="110" />
+                        <input id="btntbn" size="110" />
                         <button
+                            onClick={this.handleInput}
                             className="btn btn-sm btn-success"
                             style={{ height: '35px' }}
                         >
