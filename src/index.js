@@ -26,7 +26,7 @@ ReactDOM.render(
                 path="/register"
                 render={() => {
                     if (localStorage.getItem('token')) {
-                        return <Redirect to="/chat" />;
+                        return <Redirect to="/" />;
                     } else {
                         return <Register />;
                     }
